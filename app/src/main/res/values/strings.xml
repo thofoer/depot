@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Depot</string>
+    <string name="add">Neu</string>
+    <string name="refresh">Refresh</string>
+    <string name="kurs">Kurs</string>
+    <string name="anzahl">Anzahl</string>
+    <string name="url">URL</string>
+    <string name="speichern">Speichern</string>
+    <string name="abbruch">Abbruch</string>
+    <string name="isin">ISIN</string>
+    <string name="wkn">WKN</string>
+    <string name="name">Name</string>
+    <string name="neuen_eintrag_anlegen">Neuen Eintrag anlegen</string>
+    <string name="eintrag_bearbeiten">Eintrag bearbeiten</string>
+    <string name="bearbeiten">Bearbeiten</string>
+    <string name="loeschen">Löschen</string>
+    <string name="details">Details</string>
+    <string name="total">Gesamt</string>
+    <string name="yesterday">Vortag</string>
+    <string name="open">Öffnen</string>
+</resources>

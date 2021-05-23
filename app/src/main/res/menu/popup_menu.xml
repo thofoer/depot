@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/popupItemEdit"
+        android:title="@string/bearbeiten" />
+    <item
+        android:id="@+id/popupItemDelete"
+        android:title="@string/loeschen" />
+    <item
+        android:id="@+id/popupItemOpen"
+        android:title="@string/open" />
+</menu>
