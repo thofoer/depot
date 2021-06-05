@@ -25,14 +25,16 @@ public class QuoteLoader {
         int idx = text.indexOf("<spanitemprop=\"price\"");
         text=text.substring( idx, idx+500 );
 
-        String regex = ".*<span itemprop=\"price\" content=\".*\">(.*?)</span><span .*\">(.*?)&nbsp;&euro;</td></tr></table>.*".replaceAll(" |\t|\n|\r", "");
+        String regex = ".*<span itemprop=\"price\" content=\".*\">(.*?)</span><span .*\">(.*?)&nbsp;&euro;</td></tr></table><div class=\"snapshotInfo right\">([0-9\\:\\.]*).*?\\|.*".replaceAll(" |\t|\n|\r", "");
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
         if (matcher.matches()) {
             String value = matcher.group(1);
             String diff = matcher.group(2);
-            Price price = new Price(value, diff);
+            String time = matcher.group(3);
+            int age = FormatUtilities.parseTimestamp(time);
+            Price price = new Price(value, diff, age);
             return price;
         }
         return null;
@@ -63,3 +65,4 @@ public class QuoteLoader {
     }
 
 }
+

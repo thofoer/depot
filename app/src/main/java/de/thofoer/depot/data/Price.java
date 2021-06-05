@@ -5,15 +5,17 @@ import java.io.Serializable;
 public class Price implements Serializable {
     public int value;
     public int diff;
+    public int age;
 
     public Price() {
         value = -1;
         diff = -1;
     }
 
-    public Price(String value, String diff) {
+    public Price(String value, String diff, int age) {
         this.value = parse(value);
         this.diff = parse(diff);
+        this.age = age;
     }
 
     private int parse(String v) {

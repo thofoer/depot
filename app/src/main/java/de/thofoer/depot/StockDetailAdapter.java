@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class StockDetailAdapter extends ArrayAdapter<Stock>  {
         TextView stockName;
         TextView price;
         TextView diff;
+        ImageView image;
         TextView total;
         TextView totalDiff;
     }
@@ -51,6 +53,7 @@ public class StockDetailAdapter extends ArrayAdapter<Stock>  {
             viewHolder.stockName = (TextView) convertView.findViewById(R.id.textDetailStockName);
             viewHolder.price = (TextView) convertView.findViewById(R.id.textDetailQuote);
             viewHolder.diff = (TextView) convertView.findViewById(R.id.textDetailDiff);
+            viewHolder.image = (ImageView) convertView.findViewById(R.id.imageView);
             viewHolder.total = (TextView) convertView.findViewById(R.id.textDetailTotal);
             viewHolder.totalDiff = (TextView) convertView.findViewById(R.id.textDetailTotalDiff);
             convertView.setTag(viewHolder);
@@ -74,6 +77,7 @@ public class StockDetailAdapter extends ArrayAdapter<Stock>  {
             viewHolder.totalDiff.setText("Diff gesamt");
             viewHolder.diff.setTextColor(getContext().getResources().getColor(R.color.gray, getContext().getTheme()));
             viewHolder.totalDiff.setTextColor(getContext().getResources().getColor(R.color.gray, getContext().getTheme()));
+            viewHolder.image.setImageDrawable(null);
             return convertView;
         }
         Stock stock = getItem(position);
@@ -103,6 +107,7 @@ public class StockDetailAdapter extends ArrayAdapter<Stock>  {
             viewHolder.diff.setText("");
             viewHolder.total.setText("");
             viewHolder.totalDiff.setText("");
+            viewHolder.image.setImageDrawable(null);
         }
         else {
             viewHolder.price.setText(FormatUtilities.formatValue(stock.price));
@@ -111,7 +116,15 @@ public class StockDetailAdapter extends ArrayAdapter<Stock>  {
             viewHolder.totalDiff.setText(FormatUtilities.formatDiff(stock.getTotal(), stock.getTotalDiff()));
         }
 
-
+        if (stock.price.value>=0) {
+            if (stock.price.age <= 60) {
+                viewHolder.image.setImageResource(R.drawable.kreisgruen);
+            } else if (stock.price.age <= 300) {
+                viewHolder.image.setImageResource(R.drawable.kreisgelb);
+            } else {
+                viewHolder.image.setImageResource(R.drawable.kreisrot);
+            }
+        }
         return convertView;
     }
 

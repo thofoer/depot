@@ -1,7 +1,25 @@
 package de.thofoer.depot.data;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class FormatUtilities {
 
+    public static int parseTimestamp(String timestamp) {
+        DateFormat df;
+        if (timestamp.length()>8) {
+            df = new SimpleDateFormat("dd.MM.yyHH:mm:ss");
+        }
+        else {
+            df = new SimpleDateFormat("HH:mm:ss");
+        }
+        try {
+            return (int) (System.currentTimeMillis() - df.parse(timestamp).getTime()) / 1000;
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static String formatValue(Price price) {
         return formatValue(price.value);
