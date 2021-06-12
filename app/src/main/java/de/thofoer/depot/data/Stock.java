@@ -18,6 +18,7 @@ public class Stock implements Serializable {
     public String uri;
     public int buyRate;
     public int amount;
+    public AssetType type;
 
     @Ignore
     public Price price = new Price();

@@ -8,8 +8,11 @@ public class FormatUtilities {
 
     public static int parseTimestamp(String timestamp) {
         DateFormat df;
-        if (timestamp.length()>8) {
+        if (timestamp.length()==16) {
             df = new SimpleDateFormat("dd.MM.yyHH:mm:ss");
+        }
+        else if (timestamp.length()==10) {
+            df = new SimpleDateFormat("dd.MM.yyyy");
         }
         else {
             df = new SimpleDateFormat("HH:mm:ss");

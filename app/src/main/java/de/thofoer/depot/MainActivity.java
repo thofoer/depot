@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         quoteLoader = new QuoteLoader();
         executor.execute( () -> {
             stockList = new ArrayList<>(StockDatabase.getDatabase(getApplicationContext()).stockDao().getAll());
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             ListView listView = (ListView) findViewById(R.id.listView);
             listView.setAdapter(itemsAdapter);
         });
+
     }
 
     @Override
