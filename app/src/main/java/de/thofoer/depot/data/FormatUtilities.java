@@ -3,6 +3,9 @@ package de.thofoer.depot.data;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class FormatUtilities {
 
@@ -15,10 +18,11 @@ public class FormatUtilities {
             df = new SimpleDateFormat("dd.MM.yyyy");
         }
         else {
-            df = new SimpleDateFormat("HH:mm:ss");
+            timestamp = String.format("%1$td.%1$tm.%1$ty", new Date())+timestamp;
+            df = new SimpleDateFormat("dd.MM.yyHH:mm:ss");
         }
         try {
-            return (int) (System.currentTimeMillis() - df.parse(timestamp).getTime()) / 1000;
+            return (int) ((System.currentTimeMillis() -   df.parse(timestamp).getTime()) / 1000) ;
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

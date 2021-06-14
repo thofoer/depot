@@ -117,9 +117,9 @@ public class StockDetailAdapter extends ArrayAdapter<Stock>  {
         }
 
         if (stock.price.value>=0) {
-            if (stock.price.age <= 60) {
+            if (stock.price.age <= 300) {
                 viewHolder.image.setImageResource(R.drawable.kreisgruen);
-            } else if (stock.price.age <= 300) {
+            } else if (stock.price.age <= 1800) {
                 viewHolder.image.setImageResource(R.drawable.kreisgelb);
             } else {
                 viewHolder.image.setImageResource(R.drawable.kreisrot);
