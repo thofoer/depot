@@ -26,6 +26,7 @@ public class StockAdapter extends ArrayAdapter<Stock> {
         TextView stockName;
         TextView price;
         TextView diff;
+        TextView absDiff;
     }
 
 
@@ -46,32 +47,48 @@ public class StockAdapter extends ArrayAdapter<Stock> {
             viewHolder.stockName = (TextView) convertView.findViewById(R.id.textStockName);
             viewHolder.price = (TextView) convertView.findViewById(R.id.textPrice);
             viewHolder.diff = (TextView) convertView.findViewById(R.id.textDiff);
+            viewHolder.absDiff = (TextView) convertView.findViewById(R.id.textAbsDiff);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        int backgroundColor = R.color.white;
+
+        int color = R.color.gray;
         if (stock.price.value>0 && stock.price.diff > 0) {
-            backgroundColor = R.color.pos_color;
+            color = R.color.pos_text_color;
         }
         else if (stock.price.value>0 && stock.price.diff < 0) {
-            backgroundColor = R.color.neg_color;
+            color = R.color.neg_text_color;
         }
-        viewHolder.diff.setBackgroundResource(backgroundColor);
+        viewHolder.diff.setTextColor(getContext().getResources().getColor(color, getContext().getTheme()));
+
+        color = R.color.gray;
+        if (stock.price.value>0 && stock.getTotalDiff() > 0) {
+            color = R.color.pos_text_color;
+        }
+        else if (stock.price.value>0 && stock.getTotalDiff() < 0) {
+            color = R.color.neg_text_color;
+        }
+
+        viewHolder.absDiff.setTextColor(getContext().getResources().getColor(color, getContext().getTheme()));
+
         viewHolder.stockName.setText(stock.name);
         if (stock.price.value<0) {
             viewHolder.price.setText("");
             viewHolder.diff.setText("");
+            viewHolder.absDiff.setText("");
         }
         else {
             viewHolder.price.setText(FormatUtilities.formatValue(stock.price));
             viewHolder.diff.setText(FormatUtilities.formatDiff(stock.price));
+            viewHolder.absDiff.setText(FormatUtilities.formatPercent(stock.getTotal(), stock.getTotalDiff()));
         }
 
 
         viewHolder.stockName.setOnLongClickListener((view) -> openMenu(stock, viewHolder.stockName));
         viewHolder.price.setOnLongClickListener((view) -> openMenu(stock, viewHolder.stockName));
         viewHolder.diff.setOnLongClickListener((view) -> openMenu(stock, viewHolder.stockName));
+        viewHolder.absDiff.setOnLongClickListener((view) -> openMenu(stock, viewHolder.stockName));
         return convertView;
     }
 

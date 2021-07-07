@@ -48,6 +48,13 @@ public class FormatUtilities {
         return s + " (" + neg + percent + "%)";
     }
 
+    public static String formatPercent(int value, int diff) {
+        String neg = diff < 0 ? "-" : "+";
+        int diffAbs = Math.abs(diff);
+        String percent = calcPercent(value-diff, diffAbs);
+        return neg + percent + "%";
+    }
+
     private static String calcPercent(int value, int diff) {
         double percent = (double)diff / (double)value;
         return String.format("%.2f", 100*percent);
