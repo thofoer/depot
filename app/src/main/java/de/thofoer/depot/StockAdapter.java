@@ -29,7 +29,6 @@ public class StockAdapter extends ArrayAdapter<Stock> {
         TextView absDiff;
     }
 
-
     public StockAdapter(@NonNull Context context, int resource, @NonNull List<Stock> objects) {
         super(context, resource, objects);
     }
