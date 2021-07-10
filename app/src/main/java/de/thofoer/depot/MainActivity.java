@@ -2,42 +2,29 @@ package de.thofoer.depot;
 
 
 import android.app.Activity;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
-import de.thofoer.depot.data.Price;
 import de.thofoer.depot.data.QuoteLoader;
 import de.thofoer.depot.data.Stock;
 import de.thofoer.depot.data.StockDatabase;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int JOB_ID = 20210710;
 
     public static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -66,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
             ListView listView = (ListView) findViewById(R.id.listView);
             listView.setAdapter(itemsAdapter);
         });
+        ComponentName serviceEndpoint = new ComponentName(this, DepotRecordService.class);
+        JobInfo jobInfo = new JobInfo.Builder(JOB_ID, serviceEndpoint)
+            .setPeriodic(30*60*1000)
+            .setPersisted(true)
+            .build();
+
+        int x = getSystemService(JobScheduler.class).schedule(jobInfo);
 
     }
 
