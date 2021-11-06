@@ -15,7 +15,7 @@ public class QuoteLoader {
     private static final String SUFFIX_FOND = SUFFIX_SHARE;
     private static final String SUFFIX_CERT = "";
 
-    private static final String REGEX_SHARE = ".*<span itemprop=\"price\" content=\".*\">(.*?)</span><span .*\">(.*?)&nbsp;&euro;</td></tr></table><div class=\"snapshotInfo right\">([0-9:.]*).*?\\|.*";
+    private static final String REGEX_SHARE = ".*<spanitemprop=\"price\"content=\".*\">(.*?)</span><span.*\">.*<tdclass=\"lastcol.*?\">(.*?)&nbsp;&euro;</td></tr></table><divclass=\"snapshotInforight\">([0-9:.]*).*?|.*";
     private static final String REGEX_FOND = REGEX_SHARE;
     private static final String REGEX_CERT = "<div class=\"value-lg\" .*?><span class=.*?>(.*?)€<!----></span></div> <div class=.*?><span class=.*?><span class=.*?>(.*?)<!----></span> <span class=.*?>.*?<!----></span></span> <span class=.*?>([0-9\\:\\.]*)<span.*";
 
@@ -78,7 +78,7 @@ public class QuoteLoader {
             int age = FormatUtilities.parseTimestamp(time);
             return new Price(value, diff, age);
         }
-        return null;
+        return new Price("0,00", "0,00", 0);
     }
 
     private String loadFileFromUrl(String address, String suffix) {
