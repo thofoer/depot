@@ -13,10 +13,14 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import de.thofoer.depot.data.QuoteLoader;
 import de.thofoer.depot.data.Stock;
@@ -53,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
             ListView listView = (ListView) findViewById(R.id.listView);
             listView.setAdapter(itemsAdapter);
         });
+
+        WorkRequest workRequest = new PeriodicWorkRequest.Builder(DepotRecordWorker.class, 30, TimeUnit.MINUTES).build();
+        WorkManager.getInstance(getApplicationContext()).enqueue(workRequest);
+/*
         ComponentName serviceEndpoint = new ComponentName(this, DepotRecordService.class);
         JobInfo jobInfo = new JobInfo.Builder(JOB_ID, serviceEndpoint)
             .setPeriodic(30*60*1000)
@@ -60,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             .build();
 
         int x = getSystemService(JobScheduler.class).schedule(jobInfo);
+*/
 
     }
 

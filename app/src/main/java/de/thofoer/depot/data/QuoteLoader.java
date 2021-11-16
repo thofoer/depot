@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class QuoteLoader {
 
-    private static final String SUFFIX_SHARE = "/times_and_sales?boerse_id=131";
+    private static final String SUFFIX_SHARE = "/xetra-orderbuch-6/";
     private static final String SUFFIX_FOND = SUFFIX_SHARE;
     private static final String SUFFIX_CERT = "";
 
